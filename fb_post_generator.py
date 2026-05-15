@@ -44,7 +44,7 @@ def _extract_images_jwmagazine(soup, url):
                     image_urls.append(img_url)
                     in_heading_section = False
 
-        if len(image_urls) >= 6:
+        if len(image_urls) >= 10:
             break
 
     return image_urls
@@ -72,7 +72,7 @@ def _extract_images_fashionpress(soup, url):
                 if img_url not in seen:
                     seen.add(img_url)
                     image_urls.append(img_url)
-                if len(image_urls) >= 6:
+                if len(image_urls) >= 10:
                     return image_urls
             if image_urls:
                 return image_urls
@@ -88,7 +88,7 @@ def _extract_images_fashionpress(soup, url):
         if img_url not in seen:
             seen.add(img_url)
             image_urls.append(img_url)
-        if len(image_urls) >= 6:
+        if len(image_urls) >= 10:
             return image_urls
 
     return image_urls
@@ -120,7 +120,7 @@ def _extract_images_prtimes(soup, url):
                     if img_url not in seen:
                         seen.add(img_url)
                         image_urls.append(img_url)
-                if len(image_urls) >= 6:
+                if len(image_urls) >= 10:
                     return image_urls
             if image_urls:
                 return image_urls
@@ -136,7 +136,7 @@ def _extract_images_prtimes(soup, url):
         if img_url not in seen:
             seen.add(img_url)
             image_urls.append(img_url)
-        if len(image_urls) >= 6:
+        if len(image_urls) >= 10:
             return image_urls
 
     return image_urls
