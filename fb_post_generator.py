@@ -403,11 +403,13 @@ def process_url(url, platform="facebook_jw"):
     with open(caption_path, "w", encoding="utf-8") as f:
         f.write(caption_with_url)
 
-    subprocess.run("pbcopy", input=caption_with_url.encode(), check=True)
+    import platform as _platform
+    if _platform.system() == "Darwin":
+        subprocess.run("pbcopy", input=caption_with_url.encode(), check=True)
+        print("📋 Caption copied to clipboard! Open Metricool and press Cmd+V.")
 
     print(f"\n✅ Done! Folder: {output_folder}")
     print(f"   {len(image_files)} images + caption.txt")
-    print("📋 Caption copied to clipboard! Open Metricool and press Cmd+V.")
     return caption_with_url
 
 
