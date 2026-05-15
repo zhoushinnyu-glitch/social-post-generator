@@ -74,12 +74,12 @@ def _extract_images_fashionpress(soup, url):
                     image_urls.append(img_url)
                 if len(image_urls) >= 10:
                     return image_urls
-            if image_urls:
+            if len(image_urls) >= 10:
                 return image_urls
         except Exception:
             continue
 
-    # Fallback: body images inside div#news figures
+    # Continue with body images inside div#news figures to fill up to 10
     for img in soup.select("div#news figure img"):
         src = img.get("src", "")
         if not src or src.startswith("data:"):
