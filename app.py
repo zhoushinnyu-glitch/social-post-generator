@@ -36,10 +36,25 @@ if jw_clicked or pr_clicked or xhs_clicked:
             label = "JW Facebook"
 
         with st.spinner(f"Generating {label} post..."):
-            result = process_url(url, platform=platform)
+            result, image_files = process_url(url, platform=platform)
 
         st.text_area(
             f"{label} Post",
             result,
             height=450
         )
+
+        if image_files:
+            st.markdown("---")
+            st.subheader("Images")
+            cols = st.columns(3)
+            for i, path in enumerate(image_files):
+                with cols[i % 3]:
+                    st.image(path)
+                    with open(path, "rb") as f:
+                        st.download_button(
+                            label="Download",
+                            data=f.read(),
+                            file_name=path.split("/")[-1],
+                            key=f"dl_{i}"
+                        )

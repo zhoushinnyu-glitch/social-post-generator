@@ -410,6 +410,6 @@ def process_url(url, platform="facebook_jw"):
 
     print(f"\n✅ Done! Folder: {output_folder}")
     print(f"   {len(image_files)} images + caption.txt")
-    return caption_with_url
+    return caption_with_url, image_files
 
 
