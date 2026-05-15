@@ -1,4 +1,7 @@
-streamlit
-requests
-trafilatura
-beautifulsoup4
+anthropic==0.102.0
+beautifulsoup4==4.12.3
+pillow==12.2.0
+python-dotenv==1.0.1
+requests==2.32.3
+streamlit==1.57.0
+trafilatura==2.0.0
