@@ -6,6 +6,10 @@ st.set_page_config(
     page_icon="✍️"
 )
 
+password = st.text_input("Password", type="password")
+if password != st.secrets["APP_PASSWORD"]:
+    st.stop()
+
 st.title("Social Post Generator")
 
 url = st.text_input("Paste article URL")
@@ -47,14 +51,22 @@ if jw_clicked or pr_clicked or xhs_clicked:
         if image_files:
             st.markdown("---")
             st.subheader("Images")
+
             cols = st.columns(3)
             for i, path in enumerate(image_files):
                 with cols[i % 3]:
                     st.image(path)
-                    with open(path, "rb") as f:
-                        st.download_button(
-                            label="Download",
-                            data=f.read(),
-                            file_name=path.split("/")[-1],
-                            key=f"dl_{i}"
-                        )
+
+            import zipfile, io
+            zip_buffer = io.BytesIO()
+            with zipfile.ZipFile(zip_buffer, "w") as zf:
+                for path in image_files:
+                    zf.write(path, arcname=path.split("/")[-1])
+            zip_buffer.seek(0)
+
+            st.download_button(
+                label="⬇️ Download all images (.zip)",
+                data=zip_buffer,
+                file_name="images.zip",
+                mime="application/zip"
+            )

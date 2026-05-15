@@ -60,7 +60,10 @@ def _extract_images_fashionpress(soup, url):
     for script in soup.find_all("script", type="application/ld+json"):
         try:
             data = _json.loads(script.string or "")
-            if isinstance(data, list):
+            # Handle {"@graph": [...]} wrapper (Fashion Press uses this)
+            if isinstance(data, dict) and "@graph" in data:
+                data = next((d for d in data["@graph"] if d.get("@type") == "NewsArticle"), None)
+            elif isinstance(data, list):
                 data = next((d for d in data if d.get("@type") == "NewsArticle"), None)
             if not data or data.get("@type") != "NewsArticle":
                 continue
