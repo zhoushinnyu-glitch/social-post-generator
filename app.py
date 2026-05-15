@@ -6,9 +6,11 @@ st.set_page_config(
     page_icon="✍️"
 )
 
-password = st.text_input("Password", type="password")
-if password != st.secrets["APP_PASSWORD"]:
-    st.stop()
+app_password = st.secrets.get("APP_PASSWORD")
+if app_password:
+    password = st.text_input("Password", type="password")
+    if password != app_password:
+        st.stop()
 
 st.title("Social Post Generator")
 
